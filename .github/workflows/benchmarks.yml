@@ -20,7 +20,8 @@ jobs:
             compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
             outputfile: benchmark
             reportdir: gcc-x64
-            os: ubuntu-20.04
+            # os: ubuntu-20.04
+            os: [self-hosted, linux, x64]
             install: g++-11
             command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
           - compiler: clang++-12
@@ -29,7 +30,8 @@ jobs:
             compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
             outputfile: benchmark
             reportdir: clang-x64
-            os: ubuntu-20.04
+            # os: ubuntu-20.04
+            os: [self-hosted, linux, x64]
             command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
                         
     runs-on: ${{matrix.os}}
@@ -74,8 +76,13 @@ jobs:
           echo "REPORT_FILE=${{matrix.reportdir}}/${{matrix.sourcefile}}.csv" >> $GITHUB_ENV
       - name: Run benchmarks
         run: |
-          echo "running benchmarks and saving to "${REPORT_FILE}
-          ./${{matrix.outputfile}} | tee ${REPORT_FILE}
+          if [ -n "${{matrix.command}}" ]; then
+            echo "running benchmarks and saving to "${REPORT_FILE}
+            ${{matrix.command}} | tee ${REPORT_FILE}
+          else
+            echo "running benchmarks and saving to "${REPORT_FILE}
+            ./${{matrix.outputfile}} | tee ${REPORT_FILE}
+          fi
       - name: Push benchmark results to repo
         run: |
           git config --global user.name 'joaquintides'
@@ -99,7 +106,8 @@ jobs:
             compileroptions: /std:c++latest /O2 /D "NDEBUG" /D "HAVE_ABSEIL" /EHsc /MD /Fe:benchmark.exe
             outputfile: benchmark.exe            
             reportdir: vs-x64
-            os: windows-2019
+            # os: windows-2019
+            os: [self-hosted, Windows, X64]
 
     runs-on: ${{matrix.os}}
 
@@ -134,7 +142,8 @@ jobs:
         shell: cmd
         run: |
           cd %GITHUB_WORKSPACE%
-          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" ${{matrix.architecture}}
+          # call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" ${{matrix.architecture}}
+          call "C:\BuildTools\VC\Auxiliary\Build\vcvarsall.bat" ${{matrix.architecture}}
           set INCLUDE=%INCLUDE%;%GITHUB_WORKSPACE%\boost-root;%GITHUB_WORKSPACE%\abseil-root;%GITHUB_WORKSPACE%\fastrange-root;%GITHUB_WORKSPACE%\fxa_unordered-root
           echo %INCLUDE%
           ${{matrix.compiler}} ${{matrix.sourcefile}} ${{matrix.compileroptions}}
