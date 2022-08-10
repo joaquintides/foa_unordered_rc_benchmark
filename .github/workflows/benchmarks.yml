@@ -44,6 +44,7 @@ jobs:
             os: [self-hosted, linux, x64]
             install: g++-11
             command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
+            
           - compiler: clang++-12
             architecture: -m64
             sourcefile: running_insertion.cpp
@@ -71,6 +72,66 @@ jobs:
             # os: ubuntu-20.04
             os: [self-hosted, linux, x64]
             command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
+
+          - compiler: g++-11
+            architecture: -m32
+            sourcefile: running_insertion.cpp
+            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
+            outputfile: benchmark
+            reportdir: gcc-x86
+            # os: ubuntu-20.04
+            os: [self-hosted, linux, x64]
+            install: g++-11
+            command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
+          - compiler: g++-11
+            architecture: -m32
+            sourcefile: running_erasure.cpp
+            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
+            outputfile: benchmark
+            reportdir: gcc-x86
+            # os: ubuntu-20.04
+            os: [self-hosted, linux, x64]
+            install: g++-11
+            command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
+          - compiler: g++-11
+            architecture: -m32
+            sourcefile: scattered_lookup.cpp
+            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
+            outputfile: benchmark
+            reportdir: gcc-x86
+            # os: ubuntu-20.04
+            os: [self-hosted, linux, x64]
+            install: g++-11
+            command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
+
+          - compiler: clang++-12
+            architecture: -m32
+            sourcefile: running_insertion.cpp
+            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
+            outputfile: benchmark
+            reportdir: clang-x86
+            # os: ubuntu-20.04
+            os: [self-hosted, linux, x64]
+            command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
+          - compiler: clang++-12
+            architecture: -m32
+            sourcefile: running_erasure.cpp
+            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
+            outputfile: benchmark
+            reportdir: clang-x86
+            # os: ubuntu-20.04
+            os: [self-hosted, linux, x64]
+            command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
+          - compiler: clang++-12
+            architecture: -m32
+            sourcefile: scattered_lookup.cpp
+            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
+            outputfile: benchmark
+            reportdir: clang-x86
+            # os: ubuntu-20.04
+            os: [self-hosted, linux, x64]
+            command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
+
                         
     runs-on: ${{matrix.os}}
 
@@ -163,6 +224,31 @@ jobs:
             # os: windows-2019
             os: [self-hosted, Windows, X64]
 
+          - compiler: cl
+            architecture: x86
+            sourcefile: running_insertion.cpp
+            compileroptions: /std:c++latest /O2 /D "NDEBUG" /D "HAVE_ABSEIL" /EHsc /MD /Fe:benchmark.exe
+            outputfile: benchmark.exe            
+            reportdir: vs-x86
+            # os: windows-2019
+            os: [self-hosted, Windows, X64]
+          - compiler: cl
+            architecture: x86
+            sourcefile: running_erasure.cpp
+            compileroptions: /std:c++latest /O2 /D "NDEBUG" /D "HAVE_ABSEIL" /EHsc /MD /Fe:benchmark.exe
+            outputfile: benchmark.exe            
+            reportdir: vs-x86
+            # os: windows-2019
+            os: [self-hosted, Windows, X64]
+          - compiler: cl
+            architecture: x86
+            sourcefile: scattered_lookup.cpp
+            compileroptions: /std:c++latest /O2 /D "NDEBUG" /D "HAVE_ABSEIL" /EHsc /MD /Fe:benchmark.exe
+            outputfile: benchmark.exe            
+            reportdir: vs-x86
+            # os: windows-2019
+            os: [self-hosted, Windows, X64]
+            
     runs-on: ${{matrix.os}}
 
     steps:
