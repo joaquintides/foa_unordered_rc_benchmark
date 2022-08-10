@@ -26,6 +26,16 @@ jobs:
             command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
           - compiler: g++-11
             architecture: -m64
+            sourcefile: running_erasure.cpp
+            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
+            outputfile: benchmark
+            reportdir: gcc-x64
+            # os: ubuntu-20.04
+            os: [self-hosted, linux, x64]
+            install: g++-11
+            command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
+          - compiler: g++-11
+            architecture: -m64
             sourcefile: scattered_lookup.cpp
             compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
             outputfile: benchmark
@@ -37,6 +47,15 @@ jobs:
           - compiler: clang++-12
             architecture: -m64
             sourcefile: running_insertion.cpp
+            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
+            outputfile: benchmark
+            reportdir: clang-x64
+            # os: ubuntu-20.04
+            os: [self-hosted, linux, x64]
+            command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
+          - compiler: clang++-12
+            architecture: -m64
+            sourcefile: running_erasure.cpp
             compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
             outputfile: benchmark
             reportdir: clang-x64
@@ -122,6 +141,14 @@ jobs:
           - compiler: cl
             architecture: x64
             sourcefile: running_insertion.cpp
+            compileroptions: /std:c++latest /O2 /D "NDEBUG" /D "HAVE_ABSEIL" /EHsc /MD /Fe:benchmark.exe
+            outputfile: benchmark.exe            
+            reportdir: vs-x64
+            # os: windows-2019
+            os: [self-hosted, Windows, X64]
+          - compiler: cl
+            architecture: x64
+            sourcefile: running_erasure.cpp
             compileroptions: /std:c++latest /O2 /D "NDEBUG" /D "HAVE_ABSEIL" /EHsc /MD /Fe:benchmark.exe
             outputfile: benchmark.exe            
             reportdir: vs-x64
