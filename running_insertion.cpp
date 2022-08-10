@@ -165,7 +165,7 @@ int main()
     container_t2,
     container_t3>
   (
-    "Runnning insertion",
+    "Running insertion",
     "absl::flat_hash_set",
     "foa_unordered_rc16_set",
     "foa_unordered_rc15_set"
