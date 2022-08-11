@@ -80,7 +80,7 @@ jobs:
             command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
 
           - name: clang-arm64
-            compiler: clang++-12
+            compiler: clang++
             architecture: -m64
             sourcefile: running_insertion.cpp
             compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
@@ -91,7 +91,7 @@ jobs:
             command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
             xcode_version: 13.4.1            
           - name: clang-arm64
-            compiler: clang++-12
+            compiler: clang++
             architecture: -m64
             sourcefile: running_erasure.cpp
             compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
@@ -102,7 +102,7 @@ jobs:
             command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
             xcode_version: 13.4.1            
           - name: clang-arm64
-            compiler: clang++-12
+            compiler: clang++
             architecture: -m64
             sourcefile: scattered_lookup.cpp
             compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
