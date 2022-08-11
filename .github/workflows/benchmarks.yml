@@ -14,7 +14,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - compiler: g++-11
+          - name: gcc-x64
+            compiler: g++-11
             architecture: -m64
             sourcefile: running_insertion.cpp
             compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
@@ -24,7 +25,8 @@ jobs:
             os: [self-hosted, linux, x64]
             install: g++-11
             command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
-          - compiler: g++-11
+          - name: gcc-x64
+            compiler: g++-11
             architecture: -m64
             sourcefile: running_erasure.cpp
             compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
@@ -34,7 +36,8 @@ jobs:
             os: [self-hosted, linux, x64]
             install: g++-11
             command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
-          - compiler: g++-11
+          - name: gcc-x64
+            compiler: g++-11
             architecture: -m64
             sourcefile: scattered_lookup.cpp
             compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
@@ -45,7 +48,8 @@ jobs:
             install: g++-11
             command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
             
-          - compiler: clang++-12
+          - name: clang-x64
+            compiler: clang++-12
             architecture: -m64
             sourcefile: running_insertion.cpp
             compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
@@ -54,7 +58,8 @@ jobs:
             # os: ubuntu-20.04
             os: [self-hosted, linux, x64]
             command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
-          - compiler: clang++-12
+          - name: clang-x64
+            compiler: clang++-12
             architecture: -m64
             sourcefile: running_erasure.cpp
             compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
@@ -63,7 +68,8 @@ jobs:
             # os: ubuntu-20.04
             os: [self-hosted, linux, x64]
             command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
-          - compiler: clang++-12
+          - name: clang-x64
+            compiler: clang++-12
             architecture: -m64
             sourcefile: scattered_lookup.cpp
             compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
@@ -73,7 +79,42 @@ jobs:
             os: [self-hosted, linux, x64]
             command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
 
-          - compiler: g++-11
+          - name: clang-arm64
+            compiler: clang++-12
+            architecture: -m64
+            sourcefile: running_insertion.cpp
+            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
+            outputfile: benchmark
+            reportdir: clang-arm64
+            # os: ubuntu-20.04
+            os: [self-hosted, macOS, ARM64]
+            command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
+            xcode_version: 13.4.1            
+          - name: clang-arm64
+            compiler: clang++-12
+            architecture: -m64
+            sourcefile: running_erasure.cpp
+            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
+            outputfile: benchmark
+            reportdir: clang-arm64
+            # os: ubuntu-20.04
+            os: [self-hosted, macOS, ARM64]
+            command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
+            xcode_version: 13.4.1            
+          - name: clang-arm64
+            compiler: clang++-12
+            architecture: -m64
+            sourcefile: scattered_lookup.cpp
+            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
+            outputfile: benchmark
+            reportdir: clang-arm64
+            # os: ubuntu-20.04
+            os: [self-hosted, macOS, ARM64]
+            command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
+            xcode_version: 13.4.1            
+
+          - name: gcc-x86
+            compiler: g++-11
             architecture: -m32
             sourcefile: running_insertion.cpp
             compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
@@ -83,7 +124,8 @@ jobs:
             os: [self-hosted, linux, x64]
             install: g++-11
             command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
-          - compiler: g++-11
+          - name: gcc-x86
+            compiler: g++-11
             architecture: -m32
             sourcefile: running_erasure.cpp
             compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
@@ -93,7 +135,8 @@ jobs:
             os: [self-hosted, linux, x64]
             install: g++-11
             command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
-          - compiler: g++-11
+          - name: gcc-x86
+            compiler: g++-11
             architecture: -m32
             sourcefile: scattered_lookup.cpp
             compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
@@ -104,7 +147,8 @@ jobs:
             install: g++-11
             command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
 
-          - compiler: clang++-12
+          - name: clang-x86
+            compiler: clang++-12
             architecture: -m32
             sourcefile: running_insertion.cpp
             compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
@@ -113,7 +157,8 @@ jobs:
             # os: ubuntu-20.04
             os: [self-hosted, linux, x64]
             command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
-          - compiler: clang++-12
+          - name: clang-x86
+            compiler: clang++-12
             architecture: -m32
             sourcefile: running_erasure.cpp
             compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
@@ -122,7 +167,8 @@ jobs:
             # os: ubuntu-20.04
             os: [self-hosted, linux, x64]
             command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
-          - compiler: clang++-12
+          - name: clang-x86
+            compiler: clang++-12
             architecture: -m32
             sourcefile: scattered_lookup.cpp
             compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
@@ -175,6 +221,9 @@ jobs:
           echo "REPORT_FILE=${{matrix.reportdir}}/${{matrix.sourcefile}}.csv" >> $GITHUB_ENV
       - name: Run benchmarks
         run: |
+          if [ -n "${{matrix.xcode_version}}" ]; then
+              DEVELOPER_DIR=/Applications/Xcode-${{matrix.xcode_version}}.app/Contents/Developer
+          fi        
           if [ -n "${{matrix.command}}" ]; then
             echo "running benchmarks and saving to "${REPORT_FILE}
             ${{matrix.command}} | tee ${REPORT_FILE}
@@ -199,7 +248,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - compiler: cl
+          - name: vs-x64
+            compiler: cl
             architecture: x64
             sourcefile: running_insertion.cpp
             compileroptions: /std:c++latest /O2 /D "NDEBUG" /D "HAVE_ABSEIL" /EHsc /MD /Fe:benchmark.exe
@@ -207,7 +257,8 @@ jobs:
             reportdir: vs-x64
             # os: windows-2019
             os: [self-hosted, Windows, X64]
-          - compiler: cl
+          - name: vs-x64
+            compiler: cl
             architecture: x64
             sourcefile: running_erasure.cpp
             compileroptions: /std:c++latest /O2 /D "NDEBUG" /D "HAVE_ABSEIL" /EHsc /MD /Fe:benchmark.exe
@@ -215,7 +266,8 @@ jobs:
             reportdir: vs-x64
             # os: windows-2019
             os: [self-hosted, Windows, X64]
-          - compiler: cl
+          - name: vs-x64
+            compiler: cl
             architecture: x64
             sourcefile: scattered_lookup.cpp
             compileroptions: /std:c++latest /O2 /D "NDEBUG" /D "HAVE_ABSEIL" /EHsc /MD /Fe:benchmark.exe
@@ -224,7 +276,8 @@ jobs:
             # os: windows-2019
             os: [self-hosted, Windows, X64]
 
-          - compiler: cl
+          - name: vs-x86
+            compiler: cl
             architecture: x86
             sourcefile: running_insertion.cpp
             compileroptions: /std:c++latest /O2 /D "NDEBUG" /D "HAVE_ABSEIL" /EHsc /MD /Fe:benchmark.exe
@@ -232,7 +285,8 @@ jobs:
             reportdir: vs-x86
             # os: windows-2019
             os: [self-hosted, Windows, X64]
-          - compiler: cl
+          - name: vs-x86
+            compiler: cl
             architecture: x86
             sourcefile: running_erasure.cpp
             compileroptions: /std:c++latest /O2 /D "NDEBUG" /D "HAVE_ABSEIL" /EHsc /MD /Fe:benchmark.exe
@@ -240,7 +294,8 @@ jobs:
             reportdir: vs-x86
             # os: windows-2019
             os: [self-hosted, Windows, X64]
-          - compiler: cl
+          - name: vs-x86
+            compiler: cl
             architecture: x86
             sourcefile: scattered_lookup.cpp
             compileroptions: /std:c++latest /O2 /D "NDEBUG" /D "HAVE_ABSEIL" /EHsc /MD /Fe:benchmark.exe
