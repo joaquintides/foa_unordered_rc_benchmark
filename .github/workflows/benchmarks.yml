@@ -88,7 +88,7 @@ jobs:
             reportdir: clang-arm64
             # os: ubuntu-20.04
             os: [self-hosted, macOS, ARM64]
-            command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
+            command: ./benchmark
             xcode_version: 13.4.1            
           - name: clang-arm64
             compiler: clang++
@@ -99,7 +99,7 @@ jobs:
             reportdir: clang-arm64
             # os: ubuntu-20.04
             os: [self-hosted, macOS, ARM64]
-            command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
+            command: ./benchmark
             xcode_version: 13.4.1            
           - name: clang-arm64
             compiler: clang++
@@ -110,7 +110,7 @@ jobs:
             reportdir: clang-arm64
             # os: ubuntu-20.04
             os: [self-hosted, macOS, ARM64]
-            command: sudo cset shield --exec -- nice -n -20 sudo -u gha ./benchmark
+            command: ./benchmark
             xcode_version: 13.4.1            
 
           - name: gcc-x86
