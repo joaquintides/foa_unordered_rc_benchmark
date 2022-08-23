@@ -70,7 +70,9 @@ private:
 template<typename Container>
 void reserve(Container& s,unsigned int n)
 {
-  s.rehash((unsigned int)((double)n/s.max_load_factor()));
+  /* Abseil's max_load_factor() lies and returns 1.0 */
+
+  s.rehash((unsigned int)((double)n/0.875));
 }
 
 template<typename Container>
