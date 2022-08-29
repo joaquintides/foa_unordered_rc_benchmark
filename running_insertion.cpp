@@ -64,7 +64,7 @@ struct rand_seq
 
 private:
   std::uniform_int_distribution<boost::uint64_t> dist;
-  std::mt19937                                   gen;
+  std::mt19937_64                                gen;
 };
 
 template<typename Container>
