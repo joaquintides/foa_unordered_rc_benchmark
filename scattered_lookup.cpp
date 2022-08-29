@@ -103,7 +103,7 @@ struct scattered_unsuccessful_lookup
   {
     boost::uint64_t                                res=0;
     std::uniform_int_distribution<boost::uint64_t> dist;
-    std::mt19937                                   gen(76453);
+    std::mt19937_64                                gen(76453);
     auto                                           end_=s.end();
     while(n--){
       if(s.find(dist(gen))!=end_)++res;
