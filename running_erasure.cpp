@@ -56,23 +56,26 @@ void resume_timing()
 #include <boost/cstdint.hpp>
 #include <iostream>
 #include <random>
+#include <vector>
 
-struct rand_seq
+static std::vector<boost::uint64_t> data,unsuccessful_data;
+
+static inline void initialize_data(unsigned int n)
 {
-  rand_seq(unsigned int):gen(34862){}
-  boost::uint64_t operator()(){return dist(gen);}
-
-private:
   std::uniform_int_distribution<boost::uint64_t> dist;
-  std::mt19937_64                                gen;
-};
+  std::mt19937_64                                gen(34862);
+
+  data.clear();
+  for(unsigned int i=0;i<n;++i){
+    data.push_back(dist(gen));
+  }
+}
 
 template<typename Container>
 Container create(unsigned int n)
 {
   Container s;
-  rand_seq  rnd(n);
-  while(n--)s.insert(rnd());
+  for(unsigned int i=0;i<n;++i)s.insert(data[i]);
   return s;
 }
 
@@ -81,7 +84,7 @@ struct running_erasure
 {
   typedef unsigned int result_type;
 
-  unsigned int operator()(const Container& s0,unsigned int n)const
+  unsigned int operator()(const Container& s0)const
   {
     unsigned int res=0;
     {
@@ -123,23 +126,25 @@ void test(
   std::cout<<title<<":"<<std::endl;
   std::cout<<name1<<";"<<name2<<";"<<name3<<std::endl;
 
+  initialize_data(n1);
+
   for(unsigned int n=n0;n<=n1;n+=dn,dn=(unsigned int)(dn*fdn)){
     double t;
-    unsigned int m=Tester<Container1>()(create<Container1>(n),n);
+    unsigned int m=Tester<Container1>()(create<Container1>(n));
 
     t=measure(boost::bind(
       Tester<Container1>(),
-      temp_cref(create<Container1>(n)),n));
+      temp_cref(create<Container1>(n))));
     std::cout<<n<<";"<<(t/m)*10E6;
 
     t=measure(boost::bind(
       Tester<Container2>(),
-      temp_cref(create<Container2>(n)),n));
+      temp_cref(create<Container2>(n))));
     std::cout<<";"<<(t/m)*10E6;
  
     t=measure(boost::bind(
       Tester<Container3>(),
-      temp_cref(create<Container3>(n)),n));
+      temp_cref(create<Container3>(n))));
     std::cout<<";"<<(t/m)*10E6<<std::endl;
   }
 }

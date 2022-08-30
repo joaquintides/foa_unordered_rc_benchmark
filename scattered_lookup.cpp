@@ -58,55 +58,41 @@ void resume_timing()
 #include <random>
 #include <vector>
 
-struct rand_seq
-{
-  rand_seq(unsigned int):gen(34862){}
-  boost::uint64_t operator()(){return dist(gen);}
+static std::vector<boost::uint64_t> data,unsuccessful_data;
 
-private:
+static inline void initialize_data(unsigned int n)
+{
   std::uniform_int_distribution<boost::uint64_t> dist;
-  std::mt19937_64                                gen;
-};
+  std::mt19937_64                                gen(34862);
+
+  data.clear();
+  for(unsigned int i=0;i<n;++i){
+    data.push_back(dist(gen));
+    unsuccessful_data.push_back(dist(gen));
+  }
+}
 
 template<typename Container>
 Container create(unsigned int n)
 {
   Container s;
-  rand_seq  rnd(n);
-  while(n--)s.insert(rnd());
+  for(unsigned int i=0;i<n;++i)s.insert(data[i]);
   return s;
 }
 
 template<typename Container>
-struct scattered_successful_lookup
+struct scattered_lookup
 {
   typedef boost::uint64_t result_type;
 
-  boost::uint64_t operator()(const Container & s,unsigned int n)const
+  template<typename Data>
+  boost::uint64_t operator()(
+    const Container & s,unsigned int n,const Data& data)const
   {
-    boost::uint64_t                             res=0;
-    rand_seq                                    rnd(n);
-    auto                                        end_=s.end();
-    while(n--){
-      if(s.find(rnd())!=end_)++res;
-    }
-    return res;
-  }
-};
-
-template<typename Container>
-struct scattered_unsuccessful_lookup
-{
-  typedef boost::uint64_t result_type;
-
-  unsigned int operator()(const Container & s,unsigned int n)const
-  {
-    boost::uint64_t                                res=0;
-    std::uniform_int_distribution<boost::uint64_t> dist;
-    std::mt19937_64                                gen(76453);
-    auto                                           end_=s.end();
-    while(n--){
-      if(s.find(dist(gen))!=end_)++res;
+    boost::uint64_t res=0;
+    auto            end_=s.end();
+    for(unsigned int i=0;i<n;++i){
+      if(s.find(data[i])!=end_)++res;
     }
     return res;
   }
@@ -120,13 +106,17 @@ boost::reference_wrapper<const T> temp_cref(T&& x)
 
 template<
   template<typename> class Tester,
-  typename Container1,typename Container2,typename Container3>
+  typename Container1,typename Container2,typename Container3,
+  typename Data
+>
 void test(
-  const char* title,
+  const char* title,const Data& data,
   const char* name1,const char* name2,const char* name3)
 {
   unsigned int n0=10000,n1=10000000,dn=500;
   double       fdn=1.05;
+
+  initialize_data(n1);
 
   std::cout<<title<<":"<<std::endl;
   std::cout<<name1<<";"<<name2<<";"<<name3<<std::endl;
@@ -136,17 +126,17 @@ void test(
 
     t=measure(boost::bind(
       Tester<Container1>(),
-      temp_cref(create<Container1>(n)),n));
+      temp_cref(create<Container1>(n)),n,boost::cref(data)));
     std::cout<<n<<";"<<(t/n)*10E6;
 
     t=measure(boost::bind(
       Tester<Container2>(),
-      temp_cref(create<Container2>(n)),n));
+      temp_cref(create<Container2>(n)),n,boost::cref(data)));
     std::cout<<";"<<(t/n)*10E6;
  
     t=measure(boost::bind(
       Tester<Container3>(),
-      temp_cref(create<Container3>(n)),n));
+      temp_cref(create<Container3>(n)),n,boost::cref(data)));
     std::cout<<";"<<(t/n)*10E6<<std::endl;
   }
 }
@@ -169,24 +159,26 @@ int main()
     fxa_unordered::rc::group15>;
 
   test<
-    scattered_successful_lookup,
+    scattered_lookup,
     container_t1,
     container_t2,
     container_t3>
   (
     "Scattered successful lookup",
+    data,
     "absl::flat_hash_set",
     "foa_unordered_rc16_set",
     "foa_unordered_rc15_set"
   );
 
   test<
-    scattered_unsuccessful_lookup,
+    scattered_lookup,
     container_t1,
     container_t2,
     container_t3>
   (
     "Scattered unsuccessful lookup",
+    unsuccessful_data,
     "absl::flat_hash_set",
     "foa_unordered_rc16_set",
     "foa_unordered_rc15_set"

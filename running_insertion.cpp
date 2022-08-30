@@ -56,16 +56,20 @@ void resume_timing()
 #include <boost/cstdint.hpp>
 #include <iostream>
 #include <random>
+#include <vector>
 
-struct rand_seq
+static std::vector<boost::uint64_t> data;
+
+static inline void initialize_data(unsigned int n)
 {
-  rand_seq(unsigned int):gen(34862){}
-  boost::uint64_t operator()(){return dist(gen);}
-
-private:
   std::uniform_int_distribution<boost::uint64_t> dist;
-  std::mt19937_64                                gen;
-};
+  std::mt19937_64                                gen(34862);
+
+  data.clear();
+  for(unsigned int i=0;i<n;++i){
+    data.push_back(dist(gen));
+  }
+}
 
 template<typename Container>
 void reserve(Container& s,unsigned int n)
@@ -85,8 +89,7 @@ struct running_insertion
     unsigned int res=0;
     {
       Container s;
-      rand_seq  rnd(n);
-      while(n--)s.insert(rnd());
+      for(unsigned int i=0;i<n;++i)s.insert(data[i]);
       res=s.size();
       pause_timing();
     }
@@ -105,9 +108,8 @@ struct norehash_running_insertion
     unsigned int res=0;
     {
       Container s;
-      rand_seq  rnd(n);
       reserve(s,n);
-      while(n--)s.insert(rnd());
+      for(unsigned int i=0;i<n;++i)s.insert(data[i]);
       res=s.size();
       pause_timing();
     }
@@ -125,6 +127,8 @@ void test(
 {
   unsigned int n0=10000,n1=10000000,dn=500;
   double       fdn=1.05;
+
+  initialize_data(n1);
 
   std::cout<<title<<":"<<std::endl;
   std::cout<<name1<<";"<<name2<<";"<<name3<<std::endl;
