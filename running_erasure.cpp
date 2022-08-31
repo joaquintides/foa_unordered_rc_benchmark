@@ -75,7 +75,7 @@ template<typename Container>
 Container create(unsigned int n)
 {
   Container s;
-  for(unsigned int i=0;i<n;++i)s.insert(data[i]);
+  for(unsigned int i=0;i<n;++i)s.insert({data[i],i});
   return s;
 }
 
@@ -92,7 +92,7 @@ struct running_erasure
       Container s=s0;
       resume_timing();
       for(auto first=s.begin(),last=s.end();first!=last;){
-        if(*first%2){
+        if(first->second%2){
           s.erase(first++);
           ++res;
         }
@@ -149,19 +149,18 @@ void test(
   }
 }
 
-#include "absl/container/flat_hash_set.h"
 #include "container_defs.hpp"
 
 int main()
 {
-  using container_t1=absl::flat_hash_set<boost::uint64_t>;
-  using container_t2=foa_unordered_rc_set<
-    boost::uint64_t,mulx_hash<boost::uint64_t>,
+  using container_t1=absl::flat_hash_map<boost::uint64_t,boost::uint64_t>;
+  using container_t2=foa_unordered_rc_map<
+    boost::uint64_t,boost::uint64_t,mulx_hash<boost::uint64_t>,
     std::equal_to<boost::uint64_t>,
     std::allocator<boost::uint64_t>,
     fxa_unordered::rc::group16>;
-  using container_t3=foa_unordered_rc_set<
-    boost::uint64_t,mulx_hash<boost::uint64_t>,
+  using container_t3=foa_unordered_rc_map<
+    boost::uint64_t,boost::uint64_t,mulx_hash<boost::uint64_t>,
     std::equal_to<boost::uint64_t>,
     std::allocator<boost::uint64_t>,
     fxa_unordered::rc::group15>;
@@ -173,8 +172,8 @@ int main()
     container_t3>
   (
     "Running erasure",
-    "absl::flat_hash_set",
-    "foa_unordered_rc16_set",
-    "foa_unordered_rc15_set"
+    "absl::flat_hash_map",
+    "foa_unordered_rc16_map",
+    "foa_unordered_rc15_map"
   );
 }
