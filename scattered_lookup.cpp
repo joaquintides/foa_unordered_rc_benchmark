@@ -66,6 +66,7 @@ static inline void initialize_data(unsigned int n)
   std::mt19937_64                                gen(34862);
 
   data.clear();
+  unsuccessful_data.clear();
   for(unsigned int i=0;i<n;++i){
     data.push_back(dist(gen));
     unsuccessful_data.push_back(dist(gen));
