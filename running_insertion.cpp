@@ -165,17 +165,6 @@ int main()
     fxa_unordered::rc::group15>;
 
   test<
-    norehash_running_insertion,
-    container_t1,
-    container_t2,
-    container_t3>
-  (
-    "No-rehash running insertion",
-    "absl::flat_hash_map",
-    "foa_unordered_rc16_map",
-    "foa_unordered_rc15_map"
-  );
-  test<
     running_insertion,
     container_t1,
     container_t2,
