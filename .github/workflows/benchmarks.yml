@@ -18,7 +18,7 @@ jobs:
             compiler: g++-11
             architecture: -m64
             sourcefile: running_insertion.cpp
-            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
+            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL -DHAVE_ANKERL_UNORDERED_DENSE
             outputfile: benchmark
             reportdir: gcc-x64
             # os: ubuntu-20.04
@@ -29,7 +29,7 @@ jobs:
             compiler: g++-11
             architecture: -m64
             sourcefile: running_erasure.cpp
-            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
+            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL -DHAVE_ANKERL_UNORDERED_DENSE
             outputfile: benchmark
             reportdir: gcc-x64
             # os: ubuntu-20.04
@@ -40,7 +40,7 @@ jobs:
             compiler: g++-11
             architecture: -m64
             sourcefile: scattered_lookup.cpp
-            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
+            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL -DHAVE_ANKERL_UNORDERED_DENSE
             outputfile: benchmark
             reportdir: gcc-x64
             # os: ubuntu-20.04
@@ -52,7 +52,7 @@ jobs:
             compiler: clang++-12
             architecture: -m64
             sourcefile: running_insertion.cpp
-            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
+            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL -DHAVE_ANKERL_UNORDERED_DENSE
             outputfile: benchmark
             reportdir: clang-x64
             # os: ubuntu-20.04
@@ -62,7 +62,7 @@ jobs:
             compiler: clang++-12
             architecture: -m64
             sourcefile: running_erasure.cpp
-            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
+            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL -DHAVE_ANKERL_UNORDERED_DENSE
             outputfile: benchmark
             reportdir: clang-x64
             # os: ubuntu-20.04
@@ -72,7 +72,7 @@ jobs:
             compiler: clang++-12
             architecture: -m64
             sourcefile: scattered_lookup.cpp
-            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
+            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL -DHAVE_ANKERL_UNORDERED_DENSE
             outputfile: benchmark
             reportdir: clang-x64
             # os: ubuntu-20.04
@@ -83,7 +83,7 @@ jobs:
             compiler: clang++
             architecture: -m64
             sourcefile: running_insertion.cpp
-            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
+            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL -DHAVE_ANKERL_UNORDERED_DENSE
             outputfile: benchmark
             reportdir: clang-arm64
             # os: ubuntu-20.04
@@ -94,7 +94,7 @@ jobs:
             compiler: clang++
             architecture: -m64
             sourcefile: running_erasure.cpp
-            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
+            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL -DHAVE_ANKERL_UNORDERED_DENSE
             outputfile: benchmark
             reportdir: clang-arm64
             # os: ubuntu-20.04
@@ -105,7 +105,7 @@ jobs:
             compiler: clang++
             architecture: -m64
             sourcefile: scattered_lookup.cpp
-            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
+            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL -DHAVE_ANKERL_UNORDERED_DENSE
             outputfile: benchmark
             reportdir: clang-arm64
             # os: ubuntu-20.04
@@ -117,7 +117,7 @@ jobs:
             compiler: g++-11
             architecture: -m32
             sourcefile: running_insertion.cpp
-            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
+            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL -DHAVE_ANKERL_UNORDERED_DENSE
             outputfile: benchmark
             reportdir: gcc-x86
             # os: ubuntu-20.04
@@ -128,7 +128,7 @@ jobs:
             compiler: g++-11
             architecture: -m32
             sourcefile: running_erasure.cpp
-            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
+            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL -DHAVE_ANKERL_UNORDERED_DENSE
             outputfile: benchmark
             reportdir: gcc-x86
             # os: ubuntu-20.04
@@ -139,7 +139,7 @@ jobs:
             compiler: g++-11
             architecture: -m32
             sourcefile: scattered_lookup.cpp
-            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
+            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL -DHAVE_ANKERL_UNORDERED_DENSE
             outputfile: benchmark
             reportdir: gcc-x86
             # os: ubuntu-20.04
@@ -151,7 +151,7 @@ jobs:
             compiler: clang++-12
             architecture: -m32
             sourcefile: running_insertion.cpp
-            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
+            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL -DHAVE_ANKERL_UNORDERED_DENSE
             outputfile: benchmark
             reportdir: clang-x86
             # os: ubuntu-20.04
@@ -161,7 +161,7 @@ jobs:
             compiler: clang++-12
             architecture: -m32
             sourcefile: running_erasure.cpp
-            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
+            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL -DHAVE_ANKERL_UNORDERED_DENSE
             outputfile: benchmark
             reportdir: clang-x86
             # os: ubuntu-20.04
@@ -171,7 +171,7 @@ jobs:
             compiler: clang++-12
             architecture: -m32
             sourcefile: scattered_lookup.cpp
-            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL
+            compileroptions: -std=c++2a -O3 -DNDEBUG -DHAVE_ABSEIL -DHAVE_ANKERL_UNORDERED_DENSE
             outputfile: benchmark
             reportdir: clang-x86
             # os: ubuntu-20.04
@@ -207,6 +207,10 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
           git clone https://github.com/lemire/fastrange.git fastrange-root
+      - name: Install ankerl::unordered_dense
+        run: |
+          cd $GITHUB_WORKSPACE
+          git clone -b v1.3.1 https://github.com/martinus/unordered_dense.git ankerl-unordered_dense-root
       - name: Install fxa_unordered
         run: |
           cd $GITHUB_WORKSPACE
@@ -215,7 +219,7 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
           ${{matrix.compiler}} --version
-          ${{matrix.compiler}} ${{matrix.sourcefile}} ${{matrix.architecture}} ${{matrix.compileroptions}} -o ${{matrix.outputfile}} -I$GITHUB_WORKSPACE/boost-root -I$GITHUB_WORKSPACE/abseil-root -I$GITHUB_WORKSPACE/fastrange-root -I$GITHUB_WORKSPACE/fxa_unordered-root
+          ${{matrix.compiler}} ${{matrix.sourcefile}} ${{matrix.architecture}} ${{matrix.compileroptions}} -o ${{matrix.outputfile}} -I$GITHUB_WORKSPACE/boost-root -I$GITHUB_WORKSPACE/abseil-root -I$GITHUB_WORKSPACE/fastrange-root -I$GITHUB_WORKSPACE/ankerl-unordered_dense-root/include -I$GITHUB_WORKSPACE/fxa_unordered-root
       - name: Set reportfile name
         run: |
           echo "REPORT_FILE=${{matrix.reportdir}}/${{matrix.sourcefile}}.csv" >> $GITHUB_ENV
@@ -252,7 +256,7 @@ jobs:
             compiler: cl
             architecture: x64
             sourcefile: running_insertion.cpp
-            compileroptions: /std:c++latest /O2 /D "NDEBUG" /D "HAVE_ABSEIL" /EHsc /MD /Fe:benchmark.exe
+            compileroptions: /std:c++latest /O2 /D "NDEBUG" /D "HAVE_ABSEIL" /D "HAVE_ANKERL_UNORDERED_DENSE" /EHsc /MD /Fe:benchmark.exe
             outputfile: benchmark.exe            
             reportdir: vs-x64
             # os: windows-2019
@@ -261,7 +265,7 @@ jobs:
             compiler: cl
             architecture: x64
             sourcefile: running_erasure.cpp
-            compileroptions: /std:c++latest /O2 /D "NDEBUG" /D "HAVE_ABSEIL" /EHsc /MD /Fe:benchmark.exe
+            compileroptions: /std:c++latest /O2 /D "NDEBUG" /D "HAVE_ABSEIL" /D "HAVE_ANKERL_UNORDERED_DENSE" /EHsc /MD /Fe:benchmark.exe
             outputfile: benchmark.exe            
             reportdir: vs-x64
             # os: windows-2019
@@ -270,7 +274,7 @@ jobs:
             compiler: cl
             architecture: x64
             sourcefile: scattered_lookup.cpp
-            compileroptions: /std:c++latest /O2 /D "NDEBUG" /D "HAVE_ABSEIL" /EHsc /MD /Fe:benchmark.exe
+            compileroptions: /std:c++latest /O2 /D "NDEBUG" /D "HAVE_ABSEIL" /D "HAVE_ANKERL_UNORDERED_DENSE" /EHsc /MD /Fe:benchmark.exe
             outputfile: benchmark.exe            
             reportdir: vs-x64
             # os: windows-2019
@@ -280,7 +284,7 @@ jobs:
             compiler: cl
             architecture: x86
             sourcefile: running_insertion.cpp
-            compileroptions: /std:c++latest /O2 /D "NDEBUG" /D "HAVE_ABSEIL" /EHsc /MD /Fe:benchmark.exe
+            compileroptions: /std:c++latest /O2 /D "NDEBUG" /D "HAVE_ABSEIL" /D "HAVE_ANKERL_UNORDERED_DENSE" /EHsc /MD /Fe:benchmark.exe
             outputfile: benchmark.exe            
             reportdir: vs-x86
             # os: windows-2019
@@ -289,7 +293,7 @@ jobs:
             compiler: cl
             architecture: x86
             sourcefile: running_erasure.cpp
-            compileroptions: /std:c++latest /O2 /D "NDEBUG" /D "HAVE_ABSEIL" /EHsc /MD /Fe:benchmark.exe
+            compileroptions: /std:c++latest /O2 /D "NDEBUG" /D "HAVE_ABSEIL" /D "HAVE_ANKERL_UNORDERED_DENSE" /EHsc /MD /Fe:benchmark.exe
             outputfile: benchmark.exe            
             reportdir: vs-x86
             # os: windows-2019
@@ -298,7 +302,7 @@ jobs:
             compiler: cl
             architecture: x86
             sourcefile: scattered_lookup.cpp
-            compileroptions: /std:c++latest /O2 /D "NDEBUG" /D "HAVE_ABSEIL" /EHsc /MD /Fe:benchmark.exe
+            compileroptions: /std:c++latest /O2 /D "NDEBUG" /D "HAVE_ABSEIL" /D "HAVE_ANKERL_UNORDERED_DENSE" /EHsc /MD /Fe:benchmark.exe
             outputfile: benchmark.exe            
             reportdir: vs-x86
             # os: windows-2019
@@ -328,6 +332,11 @@ jobs:
         run: |
           cd %GITHUB_WORKSPACE%
           git clone https://github.com/lemire/fastrange.git fastrange-root
+      - name: Install ankerl::unordered_dense
+        shell: cmd
+        run: |
+          cd %GITHUB_WORKSPACE%
+          git clone -b v1.3.1 https://github.com/martinus/unordered_dense.git ankerl-unordered_dense-root
       - name: Install fxa_unordered
         shell: cmd
         run: |
@@ -339,7 +348,7 @@ jobs:
           cd %GITHUB_WORKSPACE%
           # call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" ${{matrix.architecture}}
           call "C:\BuildTools\VC\Auxiliary\Build\vcvarsall.bat" ${{matrix.architecture}}
-          set INCLUDE=%INCLUDE%;%GITHUB_WORKSPACE%\boost-root;%GITHUB_WORKSPACE%\abseil-root;%GITHUB_WORKSPACE%\fastrange-root;%GITHUB_WORKSPACE%\fxa_unordered-root
+          set INCLUDE=%INCLUDE%;%GITHUB_WORKSPACE%\boost-root;%GITHUB_WORKSPACE%\abseil-root;%GITHUB_WORKSPACE%\fastrange-root;%GITHUB_WORKSPACE%\ankerl-unordered_dense-root\include;%GITHUB_WORKSPACE%\fxa_unordered-root
           echo %INCLUDE%
           ${{matrix.compiler}} ${{matrix.sourcefile}} ${{matrix.compileroptions}}
       - name: Set reportfile name

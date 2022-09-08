@@ -91,13 +91,26 @@ struct running_erasure
       pause_timing();
       Container s=s0;
       resume_timing();
-      for(auto first=s.begin(),last=s.end();first!=last;){
-        if(first->second%2){
-          s.erase(first++);
-          ++res;
+      if constexpr(std::is_void_v<decltype(s.erase(s.begin()))>){
+        for(auto first=s.begin(),last=s.end();first!=last;){
+          if(first->second%2){
+            s.erase(first++);
+            ++res;
+          }
+          else{
+            ++first;
+          }
         }
-        else{
-          ++first;
+      }
+      else{
+        for(auto first=s.begin();first!=s.end();){
+          if(first->second%2){
+            first=s.erase(first);
+            ++res;
+          }
+          else{
+            ++first;
+          }
         }
       }
       pause_timing();
@@ -150,20 +163,19 @@ void test(
 }
 
 #include "container_defs.hpp"
+#if ((SIZE_MAX>>16)>>16)==0 
+#define IN_32BIT_ARCHITECTURE
+#endif
 
 int main()
 {
   using container_t1=absl::flat_hash_map<boost::uint64_t,boost::uint64_t>;
-  using container_t2=foa_unordered_rc_map<
-    boost::uint64_t,boost::uint64_t,mulx_hash<boost::uint64_t>,
-    std::equal_to<boost::uint64_t>,
-    std::allocator<boost::uint64_t>,
-    fxa_unordered::rc::group16>;
-  using container_t3=foa_unordered_rc_map<
-    boost::uint64_t,boost::uint64_t,mulx_hash<boost::uint64_t>,
-    std::equal_to<boost::uint64_t>,
-    std::allocator<boost::uint64_t>,
-    fxa_unordered::rc::group15>;
+  using container_t2=ankerl::unordered_dense::map<boost::uint64_t,boost::uint64_t>;
+#if !defined(IN_32BIT_ARCHITECTURE)
+  using container_t3=foa_xmx_unordered_rc15_map<boost::uint64_t,boost::uint64_t>;
+#else
+  using container_t3=foa_xmx33_unordered_rc15_map<boost::uint64_t,boost::uint64_t>;
+#endif
 
   test<
     running_erasure,
@@ -173,7 +185,7 @@ int main()
   (
     "Running erasure",
     "absl::flat_hash_map",
-    "foa_unordered_rc16_map",
+    "ankerl::unordered_dense::map",
     "foa_unordered_rc15_map"
   );
 }
